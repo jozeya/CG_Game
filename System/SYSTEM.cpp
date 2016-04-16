@@ -1,0 +1,93 @@
+#include "SYSTEM.h"
+
+System::System()
+{
+	m_pOpenGL = NULL;
+	m_pGraphics = NULL;
+	m_pInput = NULL;
+}
+
+System::~System()
+{
+
+}
+
+bool System::Init()
+{
+	if(!InitWindows())
+		return false;
+
+	m_pOpenGL = new OpenGL();
+	if(!m_pOpenGL)
+		return false;
+
+	if(!m_pOpenGL->Init())
+		return false;
+
+	//INPUT
+	m_pInput = new Input();
+	if(!m_pInput)
+		return false;
+
+	if(!m_pInput->Init())
+		return false;
+
+	//GRAPHICS
+	m_pGraphics = new Graphics();
+	if(!m_pGraphics)
+		return false;
+
+	if(!m_pGraphics->Init())
+		return false;
+
+
+	return true;
+}
+
+void System::Shutdown()
+{
+	if(m_pGraphics)
+	{
+		m_pGraphics->Shutdown();
+		delete m_pGraphics;
+		m_pGraphics = NULL;
+	}
+	if(m_pInput)
+	{
+		delete m_pInput;
+		m_pInput = NULL; 
+	}
+	if(m_pOpenGL)
+	{
+		m_pOpenGL->Shutdown();
+		delete m_pOpenGL;
+		m_pOpenGL = NULL;
+	}
+}
+
+void System::MainLoop()
+{
+	
+}
+
+bool System::Frame()
+{
+	if(m_pInput -> IsKeyDown(1))
+		return false;
+
+	if(!m_pGraphics -> Frame())
+		return false;
+
+	return true;
+}
+
+bool System::InitWindows()
+{
+	
+	return true;
+}
+
+void System::ShutdownWindows()
+{
+	
+}
