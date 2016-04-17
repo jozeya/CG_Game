@@ -21,6 +21,7 @@ public:
 	static void wr_Callback(GLsizei,GLsizei);
 	static void wk_Callback(unsigned char, int , int);
 	static void wi_Callback();
+	static void cs_Callback(int, int, int);
 
 
 	void render_scene();
@@ -30,6 +31,7 @@ public:
 	GLvoid window_reshape(GLsizei, GLsizei);
 	GLvoid window_key(unsigned char, int, int);
 	GLvoid window_idle();
+	GLvoid callback_special(int key, int x, int y);
 
 
 	void Shutdown();

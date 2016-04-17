@@ -41,6 +41,8 @@ GLvoid OpenGL::InitGL(){
 	glClearColor(0, 0, 0, 1);
 }
 
+float cs_x = 0;
+
 void OpenGL::window_display(){;
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 //
@@ -57,7 +59,9 @@ void OpenGL::window_display(){;
 	//glTranslatef(0,0,-30);
 
 	/*dibujar aqui*/
+
 	//sistemaSolar();
+	glTranslatef(cs_x, 0, 0);
 	glutSolidTeapot(3);
 	//prueba1();
 	//prueba2();
@@ -97,6 +101,8 @@ void OpenGL::Shutdown()
 
 }
 
+
+
 bool OpenGL::Initialize(int argc, char **argv, int width, int height, char* appName)
 {
 	
@@ -119,7 +125,9 @@ bool OpenGL::Initialize(int argc, char **argv, int width, int height, char* appN
 	glutReshapeFunc(OpenGL::wr_Callback);
 
 	glutKeyboardFunc(OpenGL::wk_Callback);
-
+//------------
+	glutSpecialFunc(OpenGL::cs_Callback);
+//------------
 	//function called on each frame
 	glutIdleFunc(OpenGL::wi_Callback);
 
@@ -149,4 +157,33 @@ void OpenGL::wk_Callback(unsigned char key, int x, int y){
 
 void OpenGL::wi_Callback(){
 	Instance -> window_idle();
+}
+
+GLvoid OpenGL::callback_special(int key, int x, int y){
+	switch (key)
+	{
+	case GLUT_KEY_UP:
+		//ys = ys + 2;
+		glutPostRedisplay();			// et on demande le réaffichage.
+		break;
+
+	case GLUT_KEY_DOWN:
+		//ys = ys - 2;
+		glutPostRedisplay();			// et on demande le réaffichage.
+		break;
+
+	case GLUT_KEY_LEFT:					
+		cs_x = cs_x - 0.5;
+		glutPostRedisplay();			// et on demande le réaffichage.
+		break;
+
+	case GLUT_KEY_RIGHT:				
+		cs_x = cs_x + 0.5;
+		glutPostRedisplay();			// et on demande le réaffichage.
+		break;
+	}
+}
+
+void OpenGL::cs_Callback(int key, int x, int y){
+	Instance -> callback_special(key, x, y);
 }
