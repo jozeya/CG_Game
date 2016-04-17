@@ -5,25 +5,29 @@ System::System()
 	m_pOpenGL = NULL;
 	m_pGraphics = NULL;
 	m_pInput = NULL;
+	appName = "";
 }
 
-System::~System()
+
+bool System::Init(int argc, char **argv)
 {
 
-}
-
-bool System::Init()
-{
-	if(!InitWindows())
-		return false;
+	//if(!InitWindows())
+	//	return false;
 
 	m_pOpenGL = new OpenGL();
-	if(!m_pOpenGL)
-		return false;
+	m_pOpenGL->Init();
 
-	if(!m_pOpenGL->Init())
+	if(!m_pOpenGL){
 		return false;
+	}
 
+	appName = "G_G gaming";
+	if(!m_pOpenGL->Initialize(argc, argv, SCREEN_WIDTH, SCREEN_HEIGHT, appName)){
+		return false;
+	}
+	
+	/*
 	//INPUT
 	m_pInput = new Input();
 	if(!m_pInput)
@@ -39,7 +43,7 @@ bool System::Init()
 
 	if(!m_pGraphics->Init())
 		return false;
-
+	*/
 
 	return true;
 }
@@ -72,12 +76,12 @@ void System::MainLoop()
 
 bool System::Frame()
 {
-	if(m_pInput -> IsKeyDown(1))
+	/*if(m_pInput -> IsKeyDown(1))
 		return false;
 
 	if(!m_pGraphics -> Frame())
 		return false;
-
+	*/
 	return true;
 }
 
