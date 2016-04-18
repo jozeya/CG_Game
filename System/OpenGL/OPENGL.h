@@ -3,9 +3,14 @@
 
 #include <GL/glut.h>
 #include <stdio.h>
+#include <iostream>
+
+#include "../Graphics/GRAPHICS.h"
 
 #define GLUT_DISABLE_ATEXIT_HACK
 #define ECHAP 27
+
+using namespace std;
 
 class OpenGL
 {
@@ -22,8 +27,9 @@ public:
 	static void wk_Callback(unsigned char, int , int);
 	static void wi_Callback();
 	static void cs_Callback(int, int, int);
+	
 
-
+	void set_Scene(Graphics* );
 	void render_scene();
 	void init_scene();
 	GLvoid InitGL();
@@ -37,6 +43,9 @@ public:
 	void Shutdown();
 private:
 	static OpenGL* Instance;
+	Graphics* p_scene;
+	Graphics* p_character;
+
 	
 };
 

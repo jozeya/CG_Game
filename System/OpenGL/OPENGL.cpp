@@ -4,7 +4,14 @@ OpenGL* OpenGL::Instance = 0;
 
 OpenGL::OpenGL()
 {
-	
+	p_scene = NULL;
+	p_scene = new Graphics();
+	p_scene -> Init();
+
+	p_character = NULL;
+	p_character = new Graphics();
+	p_character ->Init();
+
 }
 
 OpenGL::~OpenGL()
@@ -42,31 +49,33 @@ GLvoid OpenGL::InitGL(){
 }
 
 float cs_x = 0;
+float cs_y = 0;
 
 void OpenGL::window_display(){;
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 //
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glOrtho(-25.0f, 25.0f, -25.0f, 25.0f, -25.0f, 25.0f);
 	
-	glMatrixMode(GL_MODELVIEW);
+	//glMatrixMode(GL_MODELVIEW);
 	//glOrtho(-2.0,2.0,-2.0,2.0,-2.0,2.0);
-	glLoadIdentity();
+	//glLoadIdentity();
 	
-	 gluLookAt(1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+	 //gluLookAt(1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 	//gluPerspective(10, 800/800, 0.3, 100);
 	//glTranslatef(0,0,-30);
 
-	/*dibujar aqui*/
-
-	//sistemaSolar();
+	glPushMatrix();
 	glTranslatef(cs_x, 0, 0);
-	glutSolidTeapot(3);
-	//prueba1();
-	//prueba2();
-	//prueba3();
-	//prueba4(5);
+	p_scene -> Render();
+	glPopMatrix();
+	p_character ->Render();
+	/*dibujar aqui*/
+	
+	//glutSolidTeapot(3);
+
+
 
 	glutSwapBuffers();
 
@@ -140,6 +149,7 @@ bool OpenGL::Initialize(int argc, char **argv, int width, int height, char* appN
 OpenGL* OpenGL::Init(){
 	if (!Instance)
 		Instance = new OpenGL();
+	cout<<"init opengl"<<endl;
 	return Instance;
 }
 
@@ -163,8 +173,8 @@ GLvoid OpenGL::callback_special(int key, int x, int y){
 	switch (key)
 	{
 	case GLUT_KEY_UP:
-		//ys = ys + 2;
-		glutPostRedisplay();			// et on demande le réaffichage.
+		p_scene->p_character->jump();
+		//glutPostRedisplay();			// et on demande le réaffichage.
 		break;
 
 	case GLUT_KEY_DOWN:
@@ -186,4 +196,11 @@ GLvoid OpenGL::callback_special(int key, int x, int y){
 
 void OpenGL::cs_Callback(int key, int x, int y){
 	Instance -> callback_special(key, x, y);
+}
+
+void OpenGL::set_Scene(Graphics* ptr)
+{
+	p_scene = ptr;
+	cout<<"puntero graphics recibido de system : "<<p_scene<<endl;
+	
 }

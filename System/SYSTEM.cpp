@@ -6,6 +6,8 @@ System::System()
 	m_pGraphics = NULL;
 	m_pInput = NULL;
 	appName = "";
+
+	cout << "Creado el Sistema" << endl;
 }
 
 
@@ -18,6 +20,13 @@ bool System::Init(int argc, char **argv)
 	m_pOpenGL = new OpenGL();
 	m_pOpenGL->Init();
 
+	m_pGraphics = new Graphics();
+	if(!m_pGraphics)
+		return false;
+
+	if(!m_pGraphics->Init())
+		return false;
+	
 	if(!m_pOpenGL){
 		return false;
 	}
@@ -35,15 +44,10 @@ bool System::Init(int argc, char **argv)
 
 	if(!m_pInput->Init())
 		return false;
-
-	//GRAPHICS
-	m_pGraphics = new Graphics();
-	if(!m_pGraphics)
-		return false;
-
-	if(!m_pGraphics->Init())
-		return false;
 	*/
+	//GRAPHICS
+
+	//inicializa los valores de Graphics
 
 	return true;
 }
