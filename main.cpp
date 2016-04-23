@@ -1,11 +1,14 @@
-#include "System/SYSTEM.h"
+#include "OPENGL.h"
+#include "CHARACTER.h"
 
+int main(int argc, char **argv){
 
-int main(int argc, char **argv)
-{
-	System *p_Game =  new System();
+	OpenGL sys("Game_CG", 800, 600, 100, 100);
+	sys.Run(argc, argv);
 
-	p_Game->Init(argc,argv);
+	//Character *ch;
+	//ch = new Character();
+	//ch -> Draw();
 
 	return 0;
 }
