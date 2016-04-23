@@ -12,7 +12,7 @@
 //#include <windows.h>
 #include <GL/glut.h>
 
-#include <FreeImage.h>
+#include "FreeImage/Dist/FreeImage.h"
 #include <map>
 
 class TextureManager

@@ -4,7 +4,7 @@ Character::Character(){
 	sprites = 0;
 	texture = 0;
 	sprites = TextureManager::Inst()->LoadTexture("sprites/character.png", GL_BGRA_EXT, GL_RGBA);	
-	texture = TextureManager::Inst()->LoadTexture("textures/background.png", GL_BGR_EXT, GL_RGB);
+	texture = TextureManager::Inst()->LoadTexture("tesxtures/background.png", GL_BGR_EXT, GL_RGB);
 
 	_time = 0;
 	timebase = 0;
