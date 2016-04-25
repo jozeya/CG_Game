@@ -17,7 +17,7 @@ Character::Character(){
 	x = 0.02584;
 	x_jump = 0.02369;
 	y = 0;
-	tmp = 0.023566 * 7;
+	tmp = 0.023;
 }
 
 Character::~Character(){}
@@ -60,7 +60,7 @@ GLvoid Character::Draw() {
 	}
 	
 	//nro_sec_sprite  = 0;
-	if (nro_sec_sprite == 8) nro_sec_sprite = 0;
+	if (nro_sec_sprite == 7) nro_sec_sprite = 0;
 
 	glBindTexture(GL_TEXTURE_2D, sprites);
 
@@ -107,24 +107,37 @@ GLvoid Character::Jump(){
 		glVertex3f(-5, 5, 0);
 
 	glEnd();*/	
-
+//0.02524
+//0.023
 	glBegin(GL_QUADS);
 
-		glTexCoord2f(0.1 + tmp + x_jump * nro_sec_sprite, 0.911f);
+		glTexCoord2f(0.2875 + tmp * nro_sec_sprite+ 0.003, 0.911f);
 		//glTexCoord2f(0.1 + tmp , 0.911f);
 		glVertex3f(-10, -10, 0);
 
-		glTexCoord2f(0.125 + tmp + x_jump * nro_sec_sprite, 0.911f);
+		glTexCoord2f(0.3105 +tmp * nro_sec_sprite + 0.007, 0.911f);
 		//glTexCoord2f(0.125 + tmp , 0.911f);
 		glVertex3f(10, -10, 0);
 
-		glTexCoord2f(0.125 + tmp + x_jump * nro_sec_sprite, .949f);
+		glTexCoord2f(0.3105 +tmp * nro_sec_sprite + 0.007, .949f);
 		//glTexCoord2f(0.125 + tmp , .949f);
 		glVertex3f(10, 10, 0);
 
-		glTexCoord2f(0.1 + tmp + x_jump * nro_sec_sprite, .949f);
+		glTexCoord2f(0.2875 + tmp * nro_sec_sprite+ 0.003, .949f);
 		//glTexCoord2f(0.1 + tmp , .949f);
 		glVertex3f(-10, 10, 0);
+
+/*	glTexCoord2f(0.0f + x*i, y);//coordenadas de textura
+	glVertex3d(-3, -5, 0);
+
+	glTexCoord2f(0.0f + x*i, 1.0f);
+	glVertex3d(-3, 5, 0);
+
+	glTexCoord2f(x*(i + 1.0), 1.0f);
+	glVertex3d(3, 5, 0);
+
+	glTexCoord2f(x*(i + 1.0), y);
+	glVertex3d(3, -5, 0);*/
 
 	glEnd();
 }
