@@ -99,8 +99,15 @@ GLvoid OpenGL::window_redraw(GLsizei width, GLsizei height) {
 }
 
 GLvoid OpenGL::window_keys(unsigned char key, int x, int y){
-	if (key == 27)
-		exit(1);
+	switch(key){
+		case 27:
+			exit(1);
+			break;
+		case 32:
+			Instance -> p_mCharacter -> f_jump = true;
+			break;
+	}
+	//cout << key << endl;
 }
 
 GLvoid OpenGL::window_idle(){

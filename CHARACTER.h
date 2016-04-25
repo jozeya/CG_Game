@@ -22,11 +22,17 @@ public:
 	int dt;
 	double x;
 	double y;
+	double x_jump;
+	bool f_jump;
+	double tmp;
+
 
 	Character();
 	virtual ~Character();
 
 	GLvoid Draw();
+	GLvoid Jump();
+	GLvoid Run();
 	
 };
 
