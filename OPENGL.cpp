@@ -64,6 +64,7 @@ GLvoid OpenGL::Run(int argc, char** argv){
 	glutDisplayFunc(OpenGL::wd_Callback);
 	glutReshapeFunc(OpenGL::wr_Callback);
 	glutKeyboardFunc(OpenGL::wk_Callback);
+	glutKeyboardUpFunc(OpenGL::wkUP_Callback);
 
 	//glutSpecialFunc(OpenGL::cs_Callback);
 	glutIdleFunc(OpenGL::wi_Callback);
@@ -104,10 +105,31 @@ GLvoid OpenGL::window_keys(unsigned char key, int x, int y){
 			exit(1);
 			break;
 		case 32:
-			Instance -> p_mCharacter -> f_jump = true;
+			if (!(Instance -> p_mCharacter -> f_jump)){
+				Instance -> p_mCharacter -> f_jump = true;
+				//Instance -> p_mCharacter -> f_jump = true;
+				Instance -> p_mCharacter -> nro_sec_sprite = 0;
+				Instance -> p_mCharacter -> f_hit = false;
+				Instance -> p_mCharacter -> is_running = false;
+
+			}
+		case 113:
+			 if (!(Instance -> p_mCharacter -> f_jump)){
+				Instance -> p_mCharacter -> f_jump = true;
+				Instance -> p_mCharacter -> nro_sec_sprite = 0;
+				Instance -> p_mCharacter -> f_jump = false;
+				Instance -> p_mCharacter -> is_running = false;
+			}
 			break;
 	}
 	//cout << key << endl;
+}
+
+GLvoid OpenGL::window_keyUP(unsigned char key, int x, int y){
+	if (key == 32){
+		//Instance -> p_mCharacter -> f_jump = false;
+		//Instance -> p_mCharacter -> nro_sec_sprite = 0;
+	}
 }
 
 GLvoid OpenGL::window_idle(){
@@ -141,4 +163,8 @@ GLvoid OpenGL::wr_Callback(GLsizei width, GLsizei height){
 
 GLvoid OpenGL::Draw_Character(){
 	Instance -> p_mCharacter -> Draw();
+}
+
+GLvoid OpenGL::wkUP_Callback(unsigned char key, int x, int y){
+	Instance -> window_keyUP(key,x,y);
 }

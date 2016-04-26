@@ -7,6 +7,9 @@
 #include <math.h>
 
 #include <iostream>
+#define RUN 8
+#define JUMP 7
+#define HIT 3
 
 using namespace std;
 
@@ -23,8 +26,13 @@ public:
 	double x;
 	double y;
 	double x_jump;
+	double x_hit;
+	int nro_scene;
 	bool f_jump;
+	bool f_hit;
 	double tmp;
+	bool is_running;
+
 
 
 	Character();
@@ -33,6 +41,7 @@ public:
 	GLvoid Draw();
 	GLvoid Jump();
 	GLvoid Run();
+	GLvoid Hit();
 	
 };
 
