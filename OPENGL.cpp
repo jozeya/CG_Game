@@ -3,11 +3,13 @@
 OpenGL* OpenGL::Instance = 0;
 
 OpenGL::OpenGL(char* _appName, int _width, int _height, int posx_ini, int posy_ini):appName(_appName), width(_width), height(_height), ini_window_x(posx_ini), ini_window_y(posy_ini){
-	p_mCharacter = 0;
+	//p_mCharacter = 0;
+	p_mGame = 0;
 }
 
 OpenGL::OpenGL(){
-	p_mCharacter = 0 ;
+	p_mGame = 0;
+	//p_mCharacter = 0 ;
 }
 
 OpenGL::~OpenGL(){}
@@ -80,7 +82,8 @@ void OpenGL::window_display(void){
 	//glLoadIdentity();
 	//glOrtho(-25.0f, 25.0f, -25.0f, 25.0f, -25.0f, 25.0f);
 	
-	Draw_Character();
+	//Draw_Character();
+	run_Game();
 
 	glutSwapBuffers();
 
@@ -104,31 +107,16 @@ GLvoid OpenGL::window_keys(unsigned char key, int x, int y){
 		case 27:
 			exit(1);
 			break;
-		case 32:
-			if (!(Instance -> p_mCharacter -> f_jump)){
-				Instance -> p_mCharacter -> f_jump = true;
-				//Instance -> p_mCharacter -> f_jump = true;
-				Instance -> p_mCharacter -> nro_sec_sprite = 0;
-				Instance -> p_mCharacter -> f_hit = false;
-				Instance -> p_mCharacter -> is_running = false;
 
-			}
-		case 113:
-			 if (!(Instance -> p_mCharacter -> f_jump)){
-				Instance -> p_mCharacter -> f_jump = true;
-				Instance -> p_mCharacter -> nro_sec_sprite = 0;
-				Instance -> p_mCharacter -> f_jump = false;
-				Instance -> p_mCharacter -> is_running = false;
-			}
+		default:
+			p_mGame -> captureInput(key);
 			break;
 	}
-	//cout << key << endl;
 }
 
 GLvoid OpenGL::window_keyUP(unsigned char key, int x, int y){
 	if (key == 32){
-		//Instance -> p_mCharacter -> f_jump = false;
-		//Instance -> p_mCharacter -> nro_sec_sprite = 0;
+		
 	}
 }
 
@@ -140,7 +128,7 @@ OpenGL* OpenGL::Init(){
 	if (!Instance)
 		Instance = new OpenGL();
 
-	Instance -> p_mCharacter = new Character();
+	Instance -> p_mGame = new Game();
 
 	return Instance;
 }
@@ -161,10 +149,14 @@ GLvoid OpenGL::wr_Callback(GLsizei width, GLsizei height){
 	Instance -> window_redraw(width, height);
 }
 
-GLvoid OpenGL::Draw_Character(){
-	Instance -> p_mCharacter -> Draw();
-}
+//GLvoid OpenGL::Draw_Character(){
+//	Instance -> p_mCharacter -> Draw();
+//}
 
 GLvoid OpenGL::wkUP_Callback(unsigned char key, int x, int y){
 	Instance -> window_keyUP(key,x,y);
+}
+
+GLvoid OpenGL::run_Game(){
+	Instance -> p_mGame -> start_Game();
 }

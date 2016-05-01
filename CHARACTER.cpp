@@ -11,9 +11,10 @@ Character::Character(){
 	dt = 0;
 	anim = 0;
 	nro_sec_sprite = 0;
+
 	f_jump = false;
 	f_hit = false;
-
+	f_down = false;
 
 	x = 0.02584;
 	//x_jump = 0.02369;
@@ -83,7 +84,10 @@ GLvoid Character::Draw() {
 		if(f_jump){
 			Jump();
 		}else{
-			Hit();
+			if (f_hit)
+				Hit();
+			else
+				Down();
 		}
 	}
 
@@ -114,29 +118,8 @@ GLvoid Character::Run(){
 }
 
 GLvoid Character::Jump(){
-	//0.02524
-	//0.023
+	
 	nro_scene = JUMP;
-
-	/*glBegin(GL_QUADS);
-
-		glTexCoord2f(0.2875 + tmp * nro_sec_sprite+ 0.003, 0.911f);
-		//glTexCoord2f(0.1 + tmp , 0.911f);
-		glVertex3f(-10, -10, 0);
-
-		glTexCoord2f(0.3105 +tmp * nro_sec_sprite + 0.007, 0.911f);
-		//glTexCoord2f(0.125 + tmp , 0.911f);
-		glVertex3f(10, -10, 0);
-
-		glTexCoord2f(0.3105 +tmp * nro_sec_sprite + 0.007, .949f);
-		//glTexCoord2f(0.125 + tmp , .949f);
-		glVertex3f(10, 10, 0);
-
-		glTexCoord2f(0.2875 + tmp * nro_sec_sprite+ 0.003, .949f);
-		//glTexCoord2f(0.1 + tmp , .949f);
-		glVertex3f(-10, 10, 0);
-
-	glEnd();*/
 
 	// 8 escenas = 0.45		dif con 7 = 0.02300
 	// 7 escenas = 0.427	dif con 6 = 0.01900
@@ -164,18 +147,6 @@ GLvoid Character::Jump(){
 		glTexCoord2f(0.264 + x_jump * nro_sec_sprite, 0.949);
 		glVertex3f(-8, 8, 0);
 
-		/*glTexCoord2f(0.264 , 0.9143);
-		glVertex3f(-10, -10, 0);
-
-		glTexCoord2f(aa , 0.9143);
-		glVertex3f(10, -10, 0);
-
-		glTexCoord2f(aa , 0.949);
-		glVertex3f(10, 10, 0);
-
-		glTexCoord2f(0.264 , 0.949);
-		glVertex3f(-10, 10, 0);*/
-
 	glEnd();
 	glPopMatrix();
 
@@ -201,3 +172,43 @@ GLvoid Character::Hit(){
 	glEnd();
 }
 
+GLvoid Character::Down(){
+	nro_scene = DOWN;
+
+	glBegin(GL_QUADS);
+
+		glTexCoord2f(0.33, 0.5);
+		glVertex3f(-10, -10, 0);
+
+		glTexCoord2f(0.5, 0.5);
+		glVertex3f(10, -10, 0);
+
+		glTexCoord2f(0.5, 1);
+		glVertex3f(10, 10, 0);
+
+		glTexCoord2f(0.33, 1);
+		glVertex3f(-10, 10, 0);
+
+	glEnd();	
+}
+
+GLvoid Character::input(unsigned char key){
+	switch (key){
+		case 32:
+			if (!f_jump){
+				f_jump = true;
+				nro_sec_sprite = 0;
+				f_hit = false;
+				is_running = false;
+			}
+			break;
+		case 113:
+			if (!f_jump){
+				f_jump = true;
+				nro_sec_sprite = 0;
+				f_jump = false;
+				is_running = false;
+			}
+			break;
+	}
+}
