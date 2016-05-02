@@ -66,7 +66,7 @@ GLvoid OpenGL::Run(int argc, char** argv){
 	glutDisplayFunc(OpenGL::wd_Callback);
 	glutReshapeFunc(OpenGL::wr_Callback);
 	glutKeyboardFunc(OpenGL::wk_Callback);
-	glutKeyboardUpFunc(OpenGL::wkUP_Callback);
+	glutSpecialUpFunc(OpenGL::wkUP_Callback);
 
 	glutSpecialFunc(OpenGL::cs_Callback);
 	glutIdleFunc(OpenGL::wi_Callback);
@@ -114,10 +114,12 @@ GLvoid OpenGL::window_keys(unsigned char key, int x, int y){
 	}
 }
 
-GLvoid OpenGL::window_keyUP(unsigned char key, int x, int y){
-	if (key == 32){
-		
-	}
+GLvoid OpenGL::window_keyUP(int key, int x, int y){
+	cout << "released " << key <<  endl;
+	//if (key == GLUT_KEY_DOWN){
+		//cout << "se solto" << endl;
+		p_mGame -> captureInputUP(key);
+	//}
 }
 
 GLvoid OpenGL::window_idle(){
@@ -125,9 +127,10 @@ GLvoid OpenGL::window_idle(){
 }
 
 GLvoid OpenGL::callback_special(int key, int x, int y){
+	cout << "pressed" << endl;
 	if (key == GLUT_KEY_DOWN){
 		p_mGame -> captureInput((char)key);
-		glutPostRedisplay();			// et on demande le réaffichage.
+		//glutPostRedisplay();			// et on demande le réaffichage.
 	}
 }
 
@@ -156,7 +159,7 @@ GLvoid OpenGL::wr_Callback(GLsizei width, GLsizei height){
 	Instance -> window_redraw(width, height);
 }
 
-GLvoid OpenGL::wkUP_Callback(unsigned char key, int x, int y){
+GLvoid OpenGL::wkUP_Callback(int key, int x, int y){
 	Instance -> window_keyUP(key,x,y);
 }
 

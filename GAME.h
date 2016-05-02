@@ -12,6 +12,7 @@ public:
 
 	void start_Game();
 	void captureInput(unsigned char);
+	void captureInputUP(int);
 };
 
 #endif //GAME_H
