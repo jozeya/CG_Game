@@ -4,9 +4,7 @@
 
 #include <GL/glut.h>
 #include <iostream>
-//#include "CHARACTER.h"
 #include "GAME.h"
-#include "TextureManager.h"
 
 using namespace std;
 
@@ -18,7 +16,6 @@ public:
 	int ini_window_x;
 	int ini_window_y;
 
-	//Character *p_mCharacter;
 	Game* p_mGame;
 
 	OpenGL(char*, int, int, int, int);
@@ -33,6 +30,7 @@ public:
 	GLvoid window_keys(unsigned char, int, int);
 	GLvoid window_redraw(GLsizei, GLsizei);
 	GLvoid window_keyUP(unsigned char, int, int);
+	GLvoid callback_special(int, int, int);
 	static OpenGL *Init();
 
 private:
@@ -42,7 +40,7 @@ private:
 	static GLvoid wkUP_Callback(unsigned char, int , int);
 	static GLvoid wi_Callback();
 	static GLvoid wr_Callback(GLsizei,GLsizei);
-	//static GLvoid Draw_Character();
+	static GLvoid cs_Callback(int, int, int);
 	static GLvoid run_Game();
 };
 

@@ -7,10 +7,20 @@
 #include <math.h>
 
 #include <iostream>
-#define RUN 8
-#define JUMP 7
-#define HIT 3
-#define DOWN 3
+
+#define KEY_JUMP 32
+#define KEY_HIT 113
+#define KEY_DOWN 103
+
+#define TIME_RUN 8
+#define TIME_JUMP 7
+#define TIME_HIT 3
+#define TIME_DOWN 3
+
+#define STATE_RUN 0
+#define STATE_JUMP 1
+#define STATE_HIT 2
+#define STATE_DOWN 3
 
 using namespace std;
 
@@ -30,11 +40,10 @@ public:
 	double x_hit;
 	double x_down;
 	int nro_scene;
-	bool f_jump;
-	bool f_hit;
-	bool f_down;
 	double tmp;
 	bool is_running;
+	int current_state;
+	bool is_state_active;
 
 
 

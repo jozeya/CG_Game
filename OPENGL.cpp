@@ -68,7 +68,7 @@ GLvoid OpenGL::Run(int argc, char** argv){
 	glutKeyboardFunc(OpenGL::wk_Callback);
 	glutKeyboardUpFunc(OpenGL::wkUP_Callback);
 
-	//glutSpecialFunc(OpenGL::cs_Callback);
+	glutSpecialFunc(OpenGL::cs_Callback);
 	glutIdleFunc(OpenGL::wi_Callback);
 
 	glutMainLoop();
@@ -124,6 +124,13 @@ GLvoid OpenGL::window_idle(){
 	glutPostRedisplay();
 }
 
+GLvoid OpenGL::callback_special(int key, int x, int y){
+	if (key == GLUT_KEY_DOWN){
+		p_mGame -> captureInput((char)key);
+		glutPostRedisplay();			// et on demande le réaffichage.
+	}
+}
+
 OpenGL* OpenGL::Init(){
 	if (!Instance)
 		Instance = new OpenGL();
@@ -149,14 +156,14 @@ GLvoid OpenGL::wr_Callback(GLsizei width, GLsizei height){
 	Instance -> window_redraw(width, height);
 }
 
-//GLvoid OpenGL::Draw_Character(){
-//	Instance -> p_mCharacter -> Draw();
-//}
-
 GLvoid OpenGL::wkUP_Callback(unsigned char key, int x, int y){
 	Instance -> window_keyUP(key,x,y);
 }
 
 GLvoid OpenGL::run_Game(){
 	Instance -> p_mGame -> start_Game();
+}
+
+GLvoid OpenGL::cs_Callback(int key, int x, int y){
+	Instance -> callback_special(key, x, y);
 }

@@ -12,19 +12,18 @@ Character::Character(){
 	anim = 0;
 	nro_sec_sprite = 0;
 
-	f_jump = false;
-	f_hit = false;
-	f_down = false;
+	is_state_active = false;
 
 	x = 0.02584;
-	//x_jump = 0.02369;
 	x_jump = 0.02422; 
 	x_hit = 0.04465;
+	x_down = 0.0220;
 	y = 0;
 	tmp = 0.023;
-	is_running = true;
+	//is_running = true;
+	//nro_scene = TIME_RUN;
 
-	nro_scene = RUN;
+	current_state = STATE_RUN;
 }
 
 Character::~Character(){}
@@ -60,25 +59,42 @@ GLvoid Character::Draw() {
 	
 	//if (anim / 1000.0 > 0.06)// si el tiempo de animacion dura mas 0.15s cambiamos de sprite
 	
-	if (anim / 1000.0 > .05)// si el tiempo de animacion dura mas 0.15s cambiamos de sprite
+	/*if (anim / 1000.0 > .06) // si el tiempo de animacion dura mas 0.15s cambiamos de sprite
 	{
 		nro_sec_sprite ++;
 		anim = 0.0;
 	}
 	
-	//nro_sec_sprite  = 0;
 	if (nro_sec_sprite == nro_scene){
 		nro_sec_sprite = 0;
 
-		nro_scene = RUN;
+		nro_scene = TIME_RUN;
 		f_jump = false;
 		f_hit = false;
-		is_running = true;
-	}
+		is_running = false;
+	}*/
 
 	glBindTexture(GL_TEXTURE_2D, sprites);
 
-	if  (is_running)
+	switch (current_state){
+		case STATE_JUMP:
+			Jump();
+			break;
+
+		case STATE_HIT:
+			Hit();
+			break;
+
+		case STATE_DOWN:
+			Down();
+			break;
+
+		default:
+			Run();
+			break;
+	}
+
+	/*if  (is_running)
 		Run();
 	else{
 		if(f_jump){
@@ -89,13 +105,22 @@ GLvoid Character::Draw() {
 			else
 				Down();
 		}
-	}
+	}*/
 
 	glDisable(GL_BLEND);
 	
 }
 
 GLvoid Character::Run(){
+
+	if (anim / 1000.0 > 0.05){
+		nro_sec_sprite++;
+		anim = 0.0;
+	}
+
+	if ( nro_sec_sprite == TIME_RUN ){
+		nro_sec_sprite = 0;
+	}
 
 	glPushMatrix();
 	glTranslatef(0,-2,0);
@@ -118,19 +143,18 @@ GLvoid Character::Run(){
 }
 
 GLvoid Character::Jump(){
-	
-	nro_scene = JUMP;
 
-	// 8 escenas = 0.45		dif con 7 = 0.02300
-	// 7 escenas = 0.427	dif con 6 = 0.01900
-	// 6 escenas = 0.408	dif con 5 = 0.02250
-	// 5 escenas = 0.3855	dif con 4 = 0.02500
-	// 4 escenas = 0.3605	dif con 3 = 0.02500
-	// 3 escenas = 0.3355	dif con 2 = 0.02520
-	// 2 escenas = 0.3103   dif con 1 = 0.02565
-	// 1 escena  = 0.28465
+	if (anim / 1000.0 > 0.15){
+		nro_sec_sprite++;
+		anim = 0.0;
+	}
 
-	
+	if ( nro_sec_sprite == TIME_JUMP ){
+		nro_sec_sprite = 0;
+		current_state = TIME_RUN;
+		is_state_active = false;
+	}
+
 	glPushMatrix();
 	glTranslatef(0,-2,0);
 	glBegin(GL_QUADS);
@@ -153,7 +177,17 @@ GLvoid Character::Jump(){
 }
 
 GLvoid Character::Hit(){
-	nro_scene = HIT;
+
+	if (anim / 1000.0 > 0.15){
+		nro_sec_sprite++;
+		anim = 0.0;
+	}
+
+	if ( nro_sec_sprite == TIME_HIT ){
+		nro_sec_sprite = 0;
+		current_state = TIME_RUN;
+		is_state_active = false;
+	}
 
 	glBegin(GL_QUADS);
 
@@ -173,42 +207,52 @@ GLvoid Character::Hit(){
 }
 
 GLvoid Character::Down(){
-	nro_scene = DOWN;
 
+	if (anim / 1000.0 > 0.1){
+		nro_sec_sprite++;
+		anim = 0.0;
+	}
+
+	if ( nro_sec_sprite == TIME_DOWN ){
+		nro_sec_sprite = 0;
+		current_state = TIME_RUN;
+		is_state_active = false;
+	}
+	
 	glBegin(GL_QUADS);
 
-		glTexCoord2f(0.33, 0.5);
+		glTexCoord2f(0.3244f + x_down * nro_sec_sprite, 0.7285f);
 		glVertex3f(-10, -10, 0);
 
-		glTexCoord2f(0.5, 0.5);
+		glTexCoord2f(0.3477f + x_down * nro_sec_sprite, 0.7285f);
 		glVertex3f(10, -10, 0);
 
-		glTexCoord2f(0.5, 1);
+		glTexCoord2f(0.3477f + x_down * nro_sec_sprite, 0.7510f);
 		glVertex3f(10, 10, 0);
 
-		glTexCoord2f(0.33, 1);
+		glTexCoord2f(0.3244f + x_down * nro_sec_sprite, 0.7510f);
 		glVertex3f(-10, 10, 0);
 
 	glEnd();	
 }
 
 GLvoid Character::input(unsigned char key){
-	switch (key){
-		case 32:
-			if (!f_jump){
-				f_jump = true;
-				nro_sec_sprite = 0;
-				f_hit = false;
-				is_running = false;
-			}
-			break;
-		case 113:
-			if (!f_jump){
-				f_jump = true;
-				nro_sec_sprite = 0;
-				f_jump = false;
-				is_running = false;
-			}
-			break;
+	if (!is_state_active){
+		nro_sec_sprite = 0;
+
+		switch (key){
+			case KEY_JUMP:
+				current_state = STATE_JUMP;
+				is_state_active = true;
+				break;
+			case KEY_HIT:
+				current_state = STATE_HIT;
+				is_state_active = true;
+				break;
+			case KEY_DOWN:
+				current_state = STATE_DOWN;
+				is_state_active = true;
+				break;
+		}
 	}
 }
