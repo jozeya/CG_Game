@@ -90,7 +90,7 @@ GLvoid Character::Run(){
 	}
 
 	glPushMatrix();
-	glTranslatef(-10,-6,0);
+	glTranslatef(-10,-4,0);
 	glBegin(GL_QUADS);
 
 		glTexCoord2f(0.1f + x * nro_sec_sprite , 0.96f);
@@ -123,7 +123,7 @@ GLvoid Character::Jump(){
 	}
 
 	glPushMatrix();
-	glTranslatef(-10,-6,0);
+	glTranslatef(-10,-4,0);
 	glBegin(GL_QUADS);
 
 		glTexCoord2f(0.264 + x_jump * nro_sec_sprite, 0.9143);
@@ -157,7 +157,7 @@ GLvoid Character::Hit(){
 	}
 
 	glPushMatrix();
-		glTranslatef(-10,-5,0);
+		glTranslatef(-10,-3,0);
 		glBegin(GL_QUADS);
 
 			glTexCoord2f(0.092f  + x_hit * nro_sec_sprite, 0.5895f);
@@ -189,7 +189,7 @@ GLvoid Character::Down(){
 		is_state_active = false;
 	}
 	glPushMatrix();
-		glTranslatef(-10,-6.9,0);
+		glTranslatef(-10,-4.9,0);
 		glBegin(GL_QUADS);
 
 			ini_scene = p_DOWN_Scene -> get_iniPoint(nro_sec_sprite);

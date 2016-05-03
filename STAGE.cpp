@@ -42,16 +42,16 @@ void Stage::Draw(int current_width, int current_height){
 		glBindTexture(GL_TEXTURE_2D, texture[nro_sec_back]);
 		glBegin(GL_QUADS);
 			glTexCoord2f(0.0, 0.0);
-			glVertex3d(-20, -15, 0);
+			glVertex3d(-20, -12, 0);
 
 			glTexCoord2f(1.0, 0.0);
-			glVertex3d(20, -15, 0);
+			glVertex3d(20, -12, 0);
 
 			glTexCoord2f(1.0, 1.0);
-			glVertex3d(20, 15, 0);
+			glVertex3d(20, 12, 0);
 
 			glTexCoord2f(0.0, 1.0);
-			glVertex3d(-20, 15, 0);
+			glVertex3d(-20, 12, 0);
 		
 		glEnd();
 	glPopMatrix();
