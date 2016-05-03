@@ -16,7 +16,7 @@
 #define TIME_RUN 8
 #define TIME_JUMP 7
 #define TIME_HIT 3
-#define TIME_DOWN 5
+#define TIME_DOWN 7
 
 #define STATE_RUN 0
 #define STATE_JUMP 1
@@ -62,7 +62,6 @@ public:
 	GLvoid Run();
 	GLvoid Hit();
 	GLvoid Down();
-	GLvoid set_keydown_unpressed();
 	
 };
 
