@@ -13,9 +13,18 @@ Fireball::Fireball(){
 	p_FIREBALL_Scene -> insert(0.0f, 0.48f, 0.32f, 0.67f);
 	p_FIREBALL_Scene -> insert(0.32f, 0.48f, 0.66f, 0.67f);
 	p_FIREBALL_Scene -> insert(0.67f, 0.48f, 1.0f, 0.67f);
+
+	x_posi = rand() % 10;
+	y_posi = rand() % 10;
+	speed1 = 0.01;
 }
 
 Fireball::~Fireball(){}
+
+GLvoid Fireball::Randon()
+{
+
+}
 
 GLvoid Fireball::Draw(){
 
@@ -39,7 +48,7 @@ GLvoid Fireball::Draw(){
 	}
 
 	glPushMatrix();
-		glTranslatef(8,-6.9,0);
+		glTranslatef(x_posi,-6.9,0);
 		glBindTexture(GL_TEXTURE_2D, sprites);
 		glBegin(GL_QUADS);
 
@@ -69,9 +78,10 @@ GLvoid Fireball::Draw(){
 
 			glTexCoord2f(0.67, 0.67);
 			glVertex3f(-6, 6, 0);*/
-
+			x_posi -= speed1;	
 		glEnd();	
 	glPopMatrix();
+	
 
 	glDisable(GL_BLEND);
 }

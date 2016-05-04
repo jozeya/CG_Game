@@ -4,6 +4,8 @@ Game::Game(){
 	p_mCharacter = new Character();
 	p_mFireball = new Fireball();
 	p_mStage = new Stage();
+	p_mBox = new Box();
+	p_mRock = new Rock();
 }
 
 Game::~Game(){}
@@ -12,6 +14,8 @@ void Game::start_Game(){
 	p_mStage -> Draw(current_Width, current_Height);
 	p_mCharacter -> Draw();
 	p_mFireball -> Draw();
+	p_mBox -> Draw();
+	p_mRock -> Draw();
 }
 
 void Game::captureInput(unsigned char key){

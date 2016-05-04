@@ -3,6 +3,8 @@
 
 #include "CHARACTER.h"
 #include "FIREBALL.h"
+#include "BOX.h"
+#include "ROCK.h"
 #include "STAGE.h"
 
 class Game{
@@ -13,6 +15,8 @@ public:
 
 	Character* p_mCharacter;
 	Fireball*  p_mFireball;
+	Box* p_mBox;
+	Rock* p_mRock;
 	Stage* p_mStage;
 
 	Game();
