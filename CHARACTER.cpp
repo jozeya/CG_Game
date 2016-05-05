@@ -24,7 +24,7 @@ Character::Character(){
 	is_running = true;
 	nro_scene = TIME_RUN;
 
-	current_state = STATE_HIT;
+	current_state = STATE_RUN;
 
 	p_DOWN_Scene = new Scene(TIME_DOWN);
 	p_DOWN_Scene -> insert(0.1410f, 0.8375f, 0.1659f, 0.8630f);

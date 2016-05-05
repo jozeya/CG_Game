@@ -78,7 +78,7 @@ GLvoid Fireball::Draw(){
 
 			glTexCoord2f(0.67, 0.67);
 			glVertex3f(-6, 6, 0);*/
-			x_posi -= dt/1000;	
+			x_posi -= dt/100;	
 		glEnd();	
 	glPopMatrix();
 	
