@@ -48,6 +48,9 @@ public:
 	bool is_keydown_pressed;
 
 	Scene* p_DOWN_Scene;
+	Scene* p_JUMP_Scene;
+	Scene* p_HIT_Scene;
+
 	pair<float,float> ini_scene;
 	pair<float,float> end_scene;
 

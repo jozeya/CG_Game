@@ -4,7 +4,7 @@ Character::Character(){
 	sprites = 0;
 	texture = 0;
 	sprites = TextureManager::Inst()->LoadTexture("sprites/cc.png", GL_BGRA_EXT, GL_RGBA);	
-	//texture = TextureManager::Inst()->LoadTexture("textures/stage1.bmp", GL_BGR_EXT, GL_RGB);
+	//texture = TextureManager::Inst()->LoadTexture("textures/background.png", GL_BGR_EXT, GL_RGB);
 
 	_time = 0;
 	timebase = 0;
@@ -20,11 +20,11 @@ Character::Character(){
 	x_hit = 0.04465;
 	x_down = 0.0220;
 	y = 0;
-	tmp = 0.023;
-	//is_running = true;
-	//nro_scene = TIME_RUN;
+	
+	is_running = true;
+	nro_scene = TIME_RUN;
 
-	current_state = STATE_RUN;
+	current_state = STATE_HIT;
 
 	p_DOWN_Scene = new Scene(TIME_DOWN);
 	p_DOWN_Scene -> insert(0.1410f, 0.8375f, 0.1659f, 0.8630f);
@@ -34,6 +34,23 @@ Character::Character(){
 	p_DOWN_Scene -> insert(0.2346f, 0.8375f, 0.2517f, 0.8630f);
 	p_DOWN_Scene -> insert(0.1693f, 0.8375f, 0.1893f, 0.8630f);
 	p_DOWN_Scene -> insert(0.1920f, 0.8375f, 0.2090f, 0.8630f);
+
+
+	p_JUMP_Scene = new Scene(TIME_JUMP);
+	p_JUMP_Scene -> insert(0.2655f, 0.9143f, 0.2845f, 0.9495f);
+	p_JUMP_Scene -> insert(0.2880f, 0.9143f, 0.3103f, 0.9495f);
+	p_JUMP_Scene -> insert(0.3135f, 0.9143f, 0.3352f, 0.9495f);
+	p_JUMP_Scene -> insert(0.3385f, 0.9143f, 0.3599f, 0.9495f);
+	p_JUMP_Scene -> insert(0.3632f, 0.9143f, 0.3852f, 0.9495f);
+	p_JUMP_Scene -> insert(0.2655f, 0.9143f, 0.2845f, 0.9495f);
+	p_JUMP_Scene -> insert(0.3885f, 0.9143f, 0.4075f, 0.9495f);
+
+	p_HIT_Scene = new Scene(TIME_HIT);
+	p_HIT_Scene -> insert(0.0928f, 0.5895f, 0.1325f, 0.6175f);
+	p_HIT_Scene -> insert(0.13515f, 0.5895f, 0.1761f, 0.6220f);
+	p_HIT_Scene -> insert(0.1788f, 0.5895f, 0.2248f, 0.6193f);
+	
+
 
 
 }
@@ -118,29 +135,34 @@ GLvoid Character::Jump(){
 
 	if ( nro_sec_sprite == TIME_JUMP ){
 		nro_sec_sprite = 0;
-		current_state = TIME_RUN;
+		current_state = STATE_RUN;
 		is_state_active = false;
 	}
 
+	
+
+	ini_scene = p_JUMP_Scene -> get_iniPoint(nro_sec_sprite);
+	end_scene = p_JUMP_Scene -> get_endPoint(nro_sec_sprite);
+	
 	glPushMatrix();
 	glTranslatef(-10,-4,0);
 	glBegin(GL_QUADS);
 
-		glTexCoord2f(0.264 + x_jump * nro_sec_sprite, 0.9143);
+
+		glTexCoord2f(ini_scene.first , ini_scene.second);
 		glVertex3f(-5, -5, 0);
 
-		glTexCoord2f(0.28465 + x_jump * nro_sec_sprite, 0.9143);
+		glTexCoord2f(end_scene.first, ini_scene.second);
 		glVertex3f(5, -5, 0);
 
-		glTexCoord2f(0.28465 + x_jump * nro_sec_sprite, 0.949);
+		glTexCoord2f(end_scene.first, end_scene.second);
 		glVertex3f(5, 5, 0);
 
-		glTexCoord2f(0.264 + x_jump * nro_sec_sprite, 0.949);
+		glTexCoord2f(ini_scene.first, end_scene.second);
 		glVertex3f(-5, 5, 0);
-
 	glEnd();
-	glPopMatrix();
 
+	glPopMatrix();
 }
 
 GLvoid Character::Hit(){
@@ -152,29 +174,33 @@ GLvoid Character::Hit(){
 
 	if ( nro_sec_sprite == TIME_HIT ){
 		nro_sec_sprite = 0;
-		current_state = TIME_RUN;
+		current_state = STATE_RUN;
 		is_state_active = false;
 	}
+
+	ini_scene = p_HIT_Scene -> get_iniPoint(nro_sec_sprite);
+	end_scene = p_HIT_Scene -> get_endPoint(nro_sec_sprite);
 
 	glPushMatrix();
 		glTranslatef(-10,-3,0);
 		glBegin(GL_QUADS);
 
-			glTexCoord2f(0.092f  + x_hit * nro_sec_sprite, 0.5895f);
-			glVertex3f(-6, -6, 0);
+			glTexCoord2f(ini_scene.first , ini_scene.second);
+		glVertex3f(-6, -6, 0);
 
-			glTexCoord2f(0.133f + x_hit * nro_sec_sprite, 0.5895f);
-			glVertex3f(6, -6, 0);
+		glTexCoord2f(end_scene.first, ini_scene.second);
+		glVertex3f(6, -6, 0);
 
-			glTexCoord2f(0.133f + x_hit * nro_sec_sprite, 0.6235f);
-			glVertex3f(6, 6, 0);
+		glTexCoord2f(end_scene.first, end_scene.second);
+		glVertex3f(6, 6, 0);
 
-			glTexCoord2f(0.092f + x_hit * nro_sec_sprite, 0.6235f);
-			glVertex3f(-6, 6, 0);
+		glTexCoord2f(ini_scene.first, end_scene.second);
+		glVertex3f(-6, 6, 0);
 
 		glEnd();
 	glPopMatrix();
 }
+
 
 GLvoid Character::Down(){
 
