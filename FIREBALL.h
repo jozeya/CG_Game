@@ -15,11 +15,11 @@ public:
 
 	GLint sprites;
 
-	int _time;
-	int timebase;
+	float _time;
+	float timebase;
 	int anim;
 	int nro_sec_sprite;
-	int dt;
+	float dt;
 
 	Scene* p_FIREBALL_Scene;
 	pair<float,float> ini_scene;
