@@ -1,6 +1,9 @@
 #include "CHARACTER.h"
 
-Character::Character(){
+Character::Character(float x_, float y_, float h_, float w_){
+	
+	rectangle = new Rect();
+	rectangle -> ini_Values(x_, y_, h_, w_);
 	sprites = 0;
 	texture = 0;
 	sprites = TextureManager::Inst()->LoadTexture("sprites/cc.png", GL_BGRA_EXT, GL_RGBA);	
@@ -107,20 +110,25 @@ GLvoid Character::Run(){
 	}
 
 	glPushMatrix();
-	glTranslatef(-10,-4,0);
+	//glTranslatef(rectangle->x,rectangle->y,0);
 	glBegin(GL_QUADS);
 
 		glTexCoord2f(0.1f + x * nro_sec_sprite , 0.96f);
-		glVertex3f(-5, -5, 0);
+		//glVertex3f(-5, -5, 0);
+		glVertex3f(rectangle->x,rectangle->y,0);
 
 		glTexCoord2f(0.125f + x * nro_sec_sprite, 0.96f);
-		glVertex3f(5, -5, 0);
+		//glVertex3f(5, -5, 0);
+		glVertex3f(rectangle-> x + rectangle-> w,rectangle-> y, 0);
 
 		glTexCoord2f(0.125f + x * nro_sec_sprite, .99f);
-		glVertex3f(5, 5, 0);
+		//glVertex3f(5, 5, 0);
+		glVertex3f(rectangle-> x + rectangle-> w, rectangle-> y + rectangle-> h, 0);
 
 		glTexCoord2f(0.1 + x * nro_sec_sprite, .99f);
-		glVertex3f(-5, 5, 0);
+		//glVertex3f(-5, 5, 0);
+		glVertex3f(rectangle-> x, rectangle-> y + rectangle-> h, 0);
+
 
 	glEnd();
 	glPopMatrix();
@@ -145,21 +153,21 @@ GLvoid Character::Jump(){
 	end_scene = p_JUMP_Scene -> get_endPoint(nro_sec_sprite);
 	
 	glPushMatrix();
-	glTranslatef(-10,-4,0);
+	//glTranslatef(-10,-4,0);
 	glBegin(GL_QUADS);
 
 
 		glTexCoord2f(ini_scene.first , ini_scene.second);
-		glVertex3f(-5, -5, 0);
+		glVertex3f(rectangle->x,rectangle->y,0);
 
 		glTexCoord2f(end_scene.first, ini_scene.second);
-		glVertex3f(5, -5, 0);
+		glVertex3f(rectangle-> x + rectangle-> w,rectangle-> y, 0);
 
 		glTexCoord2f(end_scene.first, end_scene.second);
-		glVertex3f(5, 5, 0);
+		glVertex3f(rectangle-> x + rectangle-> w, rectangle-> y + rectangle-> h, 0);
 
 		glTexCoord2f(ini_scene.first, end_scene.second);
-		glVertex3f(-5, 5, 0);
+		glVertex3f(rectangle-> x, rectangle-> y + rectangle-> h, 0);
 	glEnd();
 
 	glPopMatrix();
@@ -182,20 +190,22 @@ GLvoid Character::Hit(){
 	end_scene = p_HIT_Scene -> get_endPoint(nro_sec_sprite);
 
 	glPushMatrix();
-		glTranslatef(-10,-3,0);
+		//glTranslatef(-10,-3,0);
 		glBegin(GL_QUADS);
 
-			glTexCoord2f(ini_scene.first , ini_scene.second);
-		glVertex3f(-6, -6, 0);
+
+
+		glTexCoord2f(ini_scene.first , ini_scene.second);
+		glVertex3f(rectangle->x,rectangle->y,0);
 
 		glTexCoord2f(end_scene.first, ini_scene.second);
-		glVertex3f(6, -6, 0);
+		glVertex3f(rectangle-> x + rectangle-> w,rectangle-> y, 0);
 
 		glTexCoord2f(end_scene.first, end_scene.second);
-		glVertex3f(6, 6, 0);
+		glVertex3f(rectangle-> x + rectangle-> w, rectangle-> y + rectangle-> h, 0);
 
 		glTexCoord2f(ini_scene.first, end_scene.second);
-		glVertex3f(-6, 6, 0);
+		glVertex3f(rectangle-> x, rectangle-> y + rectangle-> h, 0);
 
 		glEnd();
 	glPopMatrix();
@@ -215,23 +225,23 @@ GLvoid Character::Down(){
 		is_state_active = false;
 	}
 	glPushMatrix();
-		glTranslatef(-10,-4.9,0);
+		//glTranslatef(-10,-4.9,0);
 		glBegin(GL_QUADS);
 
 			ini_scene = p_DOWN_Scene -> get_iniPoint(nro_sec_sprite);
 			end_scene = p_DOWN_Scene -> get_endPoint(nro_sec_sprite);
 
-			glTexCoord2f(ini_scene.first , ini_scene.second);
-			glVertex3f(-3.8, -3.8, 0);
+		glTexCoord2f(ini_scene.first , ini_scene.second);
+		glVertex3f(rectangle->x,rectangle->y,0);
 
-			glTexCoord2f(end_scene.first, ini_scene.second);
-			glVertex3f(3.8, -3.8, 0);
+		glTexCoord2f(end_scene.first, ini_scene.second);
+		glVertex3f(rectangle-> x + rectangle-> w,rectangle-> y, 0);
 
-			glTexCoord2f(end_scene.first, end_scene.second);
-			glVertex3f(3.8, 3.8, 0);
+		glTexCoord2f(end_scene.first, end_scene.second);
+		glVertex3f(rectangle-> x + rectangle-> w, rectangle-> y + rectangle-> h, 0);
 
-			glTexCoord2f(ini_scene.first, end_scene.second);
-			glVertex3f(-3.8, 3.8, 0);
+		glTexCoord2f(ini_scene.first, end_scene.second);
+		glVertex3f(rectangle-> x, rectangle-> y + rectangle-> h, 0);
 		glEnd();	
 	glPopMatrix();
 

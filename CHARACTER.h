@@ -8,6 +8,7 @@
 #include <math.h>
 
 #include <iostream>
+#include "RECT.h"
 
 #define KEY_JUMP 32
 #define KEY_HIT 113
@@ -54,9 +55,10 @@ public:
 	pair<float,float> ini_scene;
 	pair<float,float> end_scene;
 
-
-	Character();
+	Rect* rectangle;
+	Character(float,float,float,float);
 	~Character();
+
 
 	GLvoid input(unsigned char);
 

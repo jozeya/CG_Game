@@ -7,6 +7,7 @@
 #include <time.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include "RECT.h"
 
 
 
@@ -15,8 +16,8 @@ public:
 
 	GLint texture;
 
-	
-	Box();
+	Rect* rectangle;
+	Box(float,float,float,float);
 	~Box();
 
 	GLvoid Draw();

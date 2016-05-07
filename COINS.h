@@ -1,5 +1,5 @@
-#ifndef ROCK_H
-#define ROCK_H
+#ifndef COINS_H
+#define COINS_H
 
 #include <GL/glut.h>
 #include "TextureManager.h"
@@ -9,16 +9,21 @@
 #include <stdlib.h>
 #include "RECT.h"
 
-class Rock{
+
+class Coins{
+
 public:
 
-	GLint sprites;
+	GLint texture;
+	
 
 	Rect* rectangle;
-	Rock(float,float,float,float);
-	~Rock();
+
+	Coins(float,float,float,float);
+	~Coins();
 
 	GLvoid Draw();
+
 };
 
-#endif //ROCK_H
+#endif //COINS_H

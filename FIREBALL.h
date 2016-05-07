@@ -7,7 +7,10 @@
 #include <time.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <iostream>
+#include "RECT.h"
 
+using namespace std; 
 #define TIME_SCENE 3
 
 class Fireball{
@@ -29,12 +32,14 @@ public:
 	float y_posi;
 	float speed1;
 
-
-	Fireball();
+	Rect* rectangle;
+	Fireball(float,float,float,float);
 	~Fireball();
 
 	GLvoid Draw();
 	GLvoid Randon();
+	GLvoid In_scene();
+
 };
 
 #endif //FIREBALL_H

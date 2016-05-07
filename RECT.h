@@ -12,7 +12,16 @@ public:
 	Rect();
 	~Rect();
 
+	float x;
+	float y;
+	float h;
+	float w;
+
+
 	void set_Rect(float, float, float, float);
+	void ini_Values(float, float, float, float);
+
+	bool collide(Rect*);
 	pair<float,float> get_iniPoint();
 	pair<float,float> get_endPoint();
 };

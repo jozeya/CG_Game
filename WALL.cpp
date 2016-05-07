@@ -1,24 +1,21 @@
-#include "BOX.h"
+#include "WALL.h"
 
-Box::Box(float x_, float y_, float h_, float w_)
+Wall::Wall(float x_,float y_, float h_, float w_)
 {
 	rectangle = new Rect();
 	rectangle -> ini_Values(x_, y_, h_, w_);
-
-	texture = TextureManager::Inst()->LoadTexture("textures/woodenBox.jpg", GL_BGR_EXT, GL_RGB);	
-
-	
-
+	texture = TextureManager::Inst()->LoadTexture("textures/wall.jpg", GL_BGR_EXT, GL_RGB);	
+	x_posi = 2;
+	y_posi = 1;
 }
-Box::~Box(){}
 
-GLvoid Box::Draw()
+Wall::~Wall(){}
+
+GLvoid Wall::Draw()
 {
-	//glClear(GL_COLOR_BUFFER_BIT); 
-	//aglBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);//funcion de transparencia
-	
+	//glEnable(GL_BLEND);
 	glPushMatrix();
-
+		//glTranslatef(x_posi,y_posi,0);
 		glBindTexture(GL_TEXTURE_2D, texture);
 		glBegin(GL_QUADS);
 
@@ -34,11 +31,10 @@ GLvoid Box::Draw()
 			glTexCoord2f(0,1);
 			glVertex3f(rectangle-> x, rectangle-> y + rectangle-> h, 0);
 
-
 		glEnd();	
 	glPopMatrix();
 
-	rectangle -> x -= 0.3;
-	
+	rectangle -> x -= 0.05;
+	//glDisable(GL_BLEND);
 
 }

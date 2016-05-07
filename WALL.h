@@ -1,5 +1,5 @@
-#ifndef ROCK_H
-#define ROCK_H
+#ifndef WALL_H
+#define WALL_H
 
 #include <GL/glut.h>
 #include "TextureManager.h"
@@ -7,18 +7,25 @@
 #include <time.h>
 #include <stdio.h>
 #include <stdlib.h>
+
 #include "RECT.h"
 
-class Rock{
+
+class Wall{
+
 public:
 
-	GLint sprites;
+	GLint texture;
+	float x_posi;
+	float y_posi;
+
 
 	Rect* rectangle;
-	Rock(float,float,float,float);
-	~Rock();
+	Wall(float, float, float, float);
+	~Wall();
 
 	GLvoid Draw();
+
 };
 
-#endif //ROCK_H
+#endif //WALL_H
