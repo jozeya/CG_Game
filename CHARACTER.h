@@ -18,11 +18,13 @@
 #define TIME_JUMP 7
 #define TIME_HIT 3
 #define TIME_DOWN 7
+#define TIME_FALL 7
 
 #define STATE_RUN 0
 #define STATE_JUMP 1
 #define STATE_HIT 2
 #define STATE_DOWN 3
+#define STATE_FALL 4
 
 using namespace std;
 
@@ -51,6 +53,7 @@ public:
 	Scene* p_DOWN_Scene;
 	Scene* p_JUMP_Scene;
 	Scene* p_HIT_Scene;
+	Scene* p_FALL_Scene;
 
 	pair<float,float> ini_scene;
 	pair<float,float> end_scene;
@@ -67,6 +70,7 @@ public:
 	GLvoid Run();
 	GLvoid Hit();
 	GLvoid Down();
+	GLvoid Fall();
 	
 };
 

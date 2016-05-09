@@ -52,7 +52,15 @@ Character::Character(float x_, float y_, float h_, float w_){
 	p_HIT_Scene -> insert(0.0928f, 0.5895f, 0.1325f, 0.6175f);
 	p_HIT_Scene -> insert(0.13515f, 0.5895f, 0.1761f, 0.6220f);
 	p_HIT_Scene -> insert(0.1788f, 0.5895f, 0.2248f, 0.6193f);
-	
+
+	p_FALL_Scene = new Scene(TIME_FALL);
+	p_FALL_Scene -> insert(0.1252f, 0.8631f, 0.1520f, 0.8931f);
+	p_FALL_Scene -> insert(0.1524f, 0.8725f, 0.1802f, 0.8981f);
+	p_FALL_Scene -> insert(0.3057f, 0.8725f, 0.3442f, 0.8981f);
+	p_FALL_Scene -> insert(0.3440f, 0.8725f, 0.3710f, 0.8981f);
+	p_FALL_Scene -> insert(0.3728f, 0.8725f, 0.3968f, 0.8981f);
+	p_FALL_Scene -> insert(0.3966f, 0.8725f, 0.4190f, 0.8981f);
+	p_FALL_Scene -> insert(0.4182f, 0.8725f, 0.4448f, 0.8981f);	
 
 
 
@@ -132,6 +140,46 @@ GLvoid Character::Run(){
 
 	glEnd();
 	glPopMatrix();
+}
+
+GLvoid Character::Fall(){
+
+	if (anim / 1000.0 > 0.05){
+		nro_sec_sprite++;
+		anim = 0.0;
+	}
+
+	if ( nro_sec_sprite == TIME_FALL ){
+		nro_sec_sprite = 0;
+		current_state = STATE_RUN;
+		is_state_active = false;
+	}
+
+
+	ini_scene = p_FALL_Scene -> get_iniPoint(nro_sec_sprite);
+	end_scene = p_FALL_Scene -> get_endPoint(nro_sec_sprite);
+	
+	glPushMatrix();
+	glTranslatef(-10,-4,0);
+	glBegin(GL_QUADS);
+
+
+		glTexCoord2f(ini_scene.first , ini_scene.second);
+		glVertex3f(-5, -5, 0);
+
+		glTexCoord2f(end_scene.first, ini_scene.second);
+		glVertex3f(5, -5, 0);
+
+		glTexCoord2f(end_scene.first, end_scene.second);
+		glVertex3f(5, 5, 0);
+
+		glTexCoord2f(ini_scene.first, end_scene.second);
+		glVertex3f(-5, 5, 0);
+	glEnd();
+
+	glPopMatrix();
+
+//ffmpeg
 }
 
 GLvoid Character::Jump(){
@@ -262,7 +310,7 @@ GLvoid Character::input(unsigned char key){
 				is_state_active = true;
 				break;
 			case KEY_DOWN:
-				current_state = STATE_DOWN;
+				current_state = STATE_FALL;
 				is_state_active = true;
 				break;
 		}
